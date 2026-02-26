@@ -1,0 +1,187 @@
+/* Navbar styles */
+.navbar {
+  background: linear-gradient(90deg, #0f172a, #111827);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(2,6,23,0.6);
+}
+.nav-inner {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.brand {
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.4px;
+}
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.35rem;
+  margin-left: auto;
+}
+.hamburger {
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  display: block;
+  position: relative;
+}
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  transition: transform 0.18s ease;
+}
+.hamburger::before { top: -6px; }
+.hamburger::after { top: 6px; }
+.nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+.nav-button {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.12s ease, transform 0.06s ease;
+}
+.nav-button:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-1px);
+}
+.nav-button.active {
+  background: #10b981;
+  border-color: #10b981;
+  color: #052e23;
+}
+
+@media (max-width: 640px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: absolute;
+    top: 56px;
+    right: 1rem;
+    background: rgba(17,24,39,0.96);
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: none;
+    min-width: 170px;
+    box-shadow: 0 8px 28px rgba(2,6,23,0.6);
+    gap: 0.4rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-button { width: 100%; text-align: left; }
+}
+
+/* ---------- Shared UI styles for pages (cards, tables, forms, buttons) ---------- */
+
+/* Card container used on pages like Dashboard, Activities, AddJob */
+.card {
+  background: linear-gradient(180deg, rgba(15,23,42,0.96), rgba(11,16,28,0.96));
+  color: #e6eef4;
+  border-radius: 12px;
+  padding: 1.1rem;
+  box-shadow: 0 8px 22px rgba(2,6,23,0.6);
+  margin: 1rem 0;
+}
+
+.card.light {
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  color: #0f172a;
+  border: 1px solid rgba(2,6,23,0.04);
+}
+
+.centered-table { overflow-x: auto; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 620px;
+}
+
+.table thead tr { background: rgba(255,255,255,0.02); }
+.table th, .table td {
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.95rem;
+}
+.card.light .table th, .card.light .table td { border-bottom: 1px solid rgba(2,6,23,0.06); }
+.table th { font-weight: 700; letter-spacing: 0.2px; }
+
+.form { display:block; width:100%; }
+.form-table { width:100%; border-collapse: collapse; }
+.form-table th { text-align: left; padding-right: 0.8rem; vertical-align: top; width: 34%; min-width: 160px; }
+.form-table td { padding: 0.4rem 0; }
+
+.input, .select, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: inherit;
+  font-size: 0.95rem;
+  outline: none;
+}
+.card.light .input, .card.light .select, .card.light textarea {
+  background: #fff;
+  border: 1px solid rgba(2,6,23,0.06);
+  color: inherit;
+}
+.input:focus, .select:focus, textarea:focus { box-shadow: 0 6px 18px rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.85); }
+
+.btn {
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.12s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.primary {
+  background: #10b981;
+  border-color: #10b981;
+  color: #052e23;
+}
+.btn.ghost {
+  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.06);
+}
+
+.center { text-align: center; }
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .table { min-width: 0; }
+  .form-table th { display:block; width:100%; padding-bottom: 0.25rem; }
+  .form-table td { display:block; width:100%; }
+}
+
+/* Small utility spacing */
+.card h2 { margin: 0 0 0.75rem 0; font-size: 1.2rem; }
+.card p { margin: 0; }
+
