@@ -10,7 +10,7 @@ pipeline{
 
         stage('Test - job service') {
             steps {
-                dir('job-service') {
+                dir('job-tracker/job-service') {
                     sh 'mvn test'
                 }
             }
@@ -18,7 +18,7 @@ pipeline{
 
         stage('Test - notification service') {
             steps {
-                dir('notification-service') {
+                dir('job-tracker/notification-service') {
                     sh 'npm install'
                     sh 'npm test'
                 }
@@ -27,7 +27,7 @@ pipeline{
 
         stage('Test - frontend'){
             steps {
-                dir('frontend') {
+                dir('job-tracker/frontend') {
                     sh 'npm install'
                     sh 'npm test'
                 }
