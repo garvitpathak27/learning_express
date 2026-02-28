@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createJob } from '../services/api';
+import * as api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 function AddJob() {
@@ -14,7 +14,7 @@ function AddJob() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createJob(form).then(() => navigate('/'));
+    api.createJob(form).then(() => navigate('/'));
   };
 
   return (
