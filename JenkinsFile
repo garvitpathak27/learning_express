@@ -1,0 +1,59 @@
+pipeline{
+    agent any 
+
+    stages {
+        stage('checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Test - job service') {
+            steps {
+                dir('job-service') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Test - notification service') {
+            steps {
+                dir('notification-service') {
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }
+
+        stage('Test - frontend'){
+            steps {
+                dir('frontend') {
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }
+
+        stage('build docker image') {
+            steps {
+                sh 'docker compose build'
+            }
+        }
+
+        stage('deploy') {
+            steps {
+                sh 'docker compose up -d'
+            }
+        }
+    }
+
+
+    post {
+        success {
+            echo 'pipeline succeeded  all thest passed and app is deployed '
+        }
+        failure {
+            echo 'pipeline failed check the logs above  '
+        }
+    }
+}
