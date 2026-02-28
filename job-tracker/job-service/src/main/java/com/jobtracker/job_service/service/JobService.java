@@ -14,11 +14,12 @@ import java.util.Map;
 public class JobService {
 
     private final JobRepository jobRepository;
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final String NOTIFICATION_URL = "http://localhost:3001/api/activities";
+    private final RestTemplate restTemplate;
+    private final String NOTIFICATION_URL = "http://notification-service:3001/api/activities";
 
-    public JobService(JobRepository jobRepository) {
+     public JobService(JobRepository jobRepository, RestTemplate restTemplate) {
         this.jobRepository = jobRepository;
+        this.restTemplate = restTemplate;
     }
 
     private void notify(Long jobId, String company, String action) {

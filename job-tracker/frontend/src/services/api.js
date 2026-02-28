@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const jobAPI = axios.create({
-    baseURL: 'http://localhost:8082'
+  baseURL: 'http://localhost:8082'
 });
 
 const notificationAPI = axios.create({
-    baseURL: 'http://localhost:3001'
+  baseURL: 'http://localhost:3001'
 });
 
 export const getAllJobs = () => jobAPI.get('/api/jobs');

@@ -1,0 +1,53 @@
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: jobtracker
+      MYSQL_USER: jobuser
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    # Changed host port to 3307 to avoid conflict with a host MySQL instance
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  job-service:
+    build: ./job-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/jobtracker
+      SPRING_DATASOURCE_USERNAME: jobuser
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - mysql
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "3001:3001"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/jobtracker_logs
+      PORT: 3001
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3002:80"
+    depends_on:
+      - job-service
+      - notification-service
+
+volumes:
+  mysql_data:
+  mongo_data:
