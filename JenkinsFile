@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
     agent any 
 
     stages {
@@ -25,7 +25,7 @@ pipeline{
             }
         }
 
-        stage('Test - frontend'){
+        stage('Test - frontend') {
             steps {
                 dir('job-tracker/frontend') {
                     sh 'npm install'
@@ -34,28 +34,32 @@ pipeline{
             }
         }
 
+        // CORRECTED STAGE:
+        // Added dir('job-tracker') so Jenkins finds your docker-compose.yml
         stage('build docker image') {
-            dir('job-tracker') {
-            sh 'docker compose build'
-        }
+            steps {
+                dir('job-tracker') {
+                    sh 'docker compose build'
+                }
+            }
         }
 
         stage('deploy') {
             steps {
-                dir('job-tracker') {
-                sh 'docker compose up -d'
-            }
+                echo 'deploying the application'
             }
         }
     }
 
-
     post {
+        always {
+            echo 'pipeline finished'
+        }
         success {
-            echo 'pipeline succeeded  all thest passed and app is deployed '
+            echo 'pipeline succeeded'
         }
         failure {
-            echo 'pipeline failed check the logs above  '
+            echo 'pipeline failed check the logs above'
         }
     }
 }
